@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.Models.DTO;
 using NZWalks.API.Repositories;
 using NZWalks.Models.Domain;
+using System.Collections.Generic;
 
 namespace NZWalks.API.Controllers
 {
@@ -31,6 +32,14 @@ namespace NZWalks.API.Controllers
             // Map Domain model to DTO
             return Ok(mapper.Map<WalkDto>(walkDomainModel));
         }
-                
+
+        // GET Walks
+        // GET: /api/walks
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var walksDomain = await WalksRepository.GetallAsync();
+            return Ok(mapper.Map<List<WalkDto>>(walksDomain));
+        }
     }
 }

@@ -17,6 +17,11 @@ namespace NZWalks.API.Repositories
             await dbcontext.AddAsync(walk);
             await dbcontext.SaveChangesAsync();
             return walk;
-        }        
+        }
+
+        public async Task<List<Walk>> GetallAsync()
+        {
+            return await dbcontext.walks.ToListAsync();            
+        }
     }
 }

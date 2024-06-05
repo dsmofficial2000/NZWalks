@@ -33,7 +33,7 @@ namespace NZWalks.API.Repositories
 
         public async Task<List<Walk>> GetallAsync()
         {
-            return await dbcontext.walks.ToListAsync();            
+            return await dbcontext.walks.Include("Difficulty").Include("Region").ToListAsync();
         }
 
         public async Task<Walk?> GetByIdAsync(Guid id)

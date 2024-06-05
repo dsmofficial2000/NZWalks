@@ -39,9 +39,11 @@ namespace NZWalks.API.Controllers
         // GET: /api/walks
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
-            [FromQuery] string? sortBy, [FromQuery]bool? isAscending)
+            [FromQuery] string? sortBy, [FromQuery] bool? isAscending, 
+            [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 25)
         {            
-            var walksDomain = await WalksRepository.GetallAsync(filterOn, filterQuery, sortBy , isAscending ?? true);
+            var walksDomain = await WalksRepository.GetallAsync(filterOn, filterQuery, sortBy , isAscending ?? true ,
+                pageNumber, pageSize);
             return Ok(mapper.Map<List<WalkDto>>(walksDomain));
         }
 

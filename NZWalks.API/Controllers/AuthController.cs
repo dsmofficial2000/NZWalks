@@ -61,9 +61,7 @@ namespace NZWalks.API.Controllers
 
                 if (checkPasswordResult)
                 {
-                    //Create Token in progress
-
-
+                    
                     return Ok();
                 }
             }

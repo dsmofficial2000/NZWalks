@@ -10,11 +10,13 @@ namespace NZWalks.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> userManager;        
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly ITokenRepository tokenRepository;
 
-        public AuthController(UserManager<IdentityUser> userManager)
+        public AuthController(UserManager<IdentityUser> userManager, ITokenRepository tokenRepository)
         {
-            this.userManager = userManager;            
+            this.userManager = userManager;
+            this.tokenRepository = tokenRepository;
         }
 
 
@@ -61,8 +63,21 @@ namespace NZWalks.API.Controllers
 
                 if (checkPasswordResult)
                 {
-                    
-                    return Ok();
+                    //Get role for the user
+                    var role = await userManager.GetRolesAsync(user);
+
+                    if (role != null)
+                    {
+                        //Create token
+                        var jwtToken = tokenRepository.CreateJWTToken(user, role.ToList());
+
+                        var response = new LoginResponseDto
+                        {
+                            JwtToken = jwtToken
+                        };
+
+                        return Ok(response);
+                    }
                 }
             }
 

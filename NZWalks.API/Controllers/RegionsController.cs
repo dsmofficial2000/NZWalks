@@ -53,15 +53,22 @@ namespace NZWalks.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AddRegionDtos addRegionDtos)
         {
-            //Map or convert DTO to domain moel 
-            var regionDomainModel = mapper.Map<Region>(addRegionDtos);
+            if(ModelState.IsValid)
+            {
+                //Map or convert DTO to domain moel 
+                var regionDomainModel = mapper.Map<Region>(addRegionDtos);
 
-            //Use domain model to crate region
-            regionDomainModel = await RegionRepository.CreateAsync(regionDomainModel);
+                //Use domain model to crate region
+                regionDomainModel = await RegionRepository.CreateAsync(regionDomainModel);
 
-            var regionDto = mapper.Map<RegionsDto>(regionDomainModel);
-            //Map Domain model back to DTOs            
-            return CreatedAtAction(nameof(GetRegionById), new { id = regionDto.Id }, regionDto);
+                var regionDto = mapper.Map<RegionsDto>(regionDomainModel);
+                //Map Domain model back to DTOs            
+                return CreatedAtAction(nameof(GetRegionById), new { id = regionDto.Id }, regionDto);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         //PUT to update Region
@@ -69,6 +76,9 @@ namespace NZWalks.API.Controllers
         [Route("{id:Guid}")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] updateRegionDto updateRegionDto)
         {
+            if (ModelState.IsValid)
+            {
+
             var regiondomainModel = mapper.Map<Region>(updateRegionDto);
 
             //check if resion is exist
@@ -82,6 +92,11 @@ namespace NZWalks.API.Controllers
             //Convert domain model into DTOs
             var regionDto = mapper.Map<RegionsDto>(regiondomainModel);
             return Ok(regionDto);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         //DELETE to delete region

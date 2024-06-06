@@ -15,8 +15,9 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 var logger = new LoggerConfiguration()
-    .WriteTo.Console()    
-    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .MinimumLevel.Warning() //
+    //.MinimumLevel.Information()
     .CreateLogger();
 
 builder.Logging.ClearProviders();

@@ -9,9 +9,18 @@ using NZWalks.API.Mappings;
 using NZWalks.API.Models.DTO;
 using NZWalks.API.Repositories;
 using NZWalks.Data;
+using Serilog;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var logger = new LoggerConfiguration()
+    .WriteTo.Console()    
+    .MinimumLevel.Information()
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 // Add services to the container.
 

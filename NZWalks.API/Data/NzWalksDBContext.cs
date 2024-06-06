@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NZWalks.API.Models.Domain;
 using NZWalks.Models.Domain;
 using System.Runtime.Versioning;
 
@@ -14,7 +15,7 @@ namespace NZWalks.Data
         public DbSet<Difficulty> difficulties{ get; set; }
         public DbSet<Region> regions { get; set; }  
         public DbSet<Walk> walks { get; set; }
-
+        public DbSet<Image> images { get; set; }        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

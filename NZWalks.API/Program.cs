@@ -15,7 +15,8 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 var logger = new LoggerConfiguration()
-    .WriteTo.Console()
+    .WriteTo.Console() //this line is for console
+    .WriteTo.File("Logs/NzWalks_Log.txt", rollingInterval: RollingInterval.Minute) //this line for log in text file 
     .MinimumLevel.Warning() //
     //.MinimumLevel.Information()
     .CreateLogger();

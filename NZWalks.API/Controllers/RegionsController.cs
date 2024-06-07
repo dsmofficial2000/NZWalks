@@ -33,27 +33,11 @@ namespace NZWalks.API.Controllers
         //[Authorize(Roles = "Reader")]
         public async Task<IActionResult> GetAll()
         {
-            //How to log Example is given below
-
-            //logger.LogInformation("Get all action is invoked");
-            //logger.LogWarning("This is a warnning log");
-            //logger.LogError("This is error log");
-
-            try
-            {
-                throw new Exception("This is customer exception");
-                //Get Data from Database -Domain Model
-                var regionsDomain = await RegionRepository.GetAllAsync();
-
-                logger.LogInformation($"Get all action return data successfully {JsonSerializer.Serialize(regionsDomain)}");
-                //Return DTO
-                return Ok(mapper.Map<List<RegionsDto>>(regionsDomain));
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex , ex.Message );
-                throw;
-            }            
+            //Get Data from Database -Domain Model
+            var regionsDomain = await RegionRepository.GetAllAsync();
+            
+            //Return DTO
+            return Ok(mapper.Map<List<RegionsDto>>(regionsDomain));
         }
 
         [HttpGet]

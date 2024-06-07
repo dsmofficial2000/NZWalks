@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NZWalks.API.Data;
 using NZWalks.API.Mappings;
+using NZWalks.API.Middleware;
 using NZWalks.API.Models.DTO;
 using NZWalks.API.Repositories;
 using NZWalks.Data;
@@ -111,6 +112,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandling>();
 
 app.UseHttpsRedirection();
 
